@@ -76,6 +76,10 @@ function App() {
 
       {/* Hero Section */}
       <section id="about" className="hero-section">
+        
+        {/* === PASTE YOUR IMAGE TAG HERE (Right above the badge) === */}
+        <img src="/eyasu.jpg" alt="Josh" className="profile-img" />
+
         <div className="badge hero-badge">Available for Work</div>
         <h1>Hi, I'm <span className="highlight">Josh</span> 👋</h1>
         <p className="subtitle">Frontend Developer & React Enthusiast</p>
