@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
 
-// Option 2: Real Project Content Array
+// Project Data Array
 const projectsData = [
   {
     id: 1,
     title: "Personal React Portfolio",
-    description: "A modern, interactive developer portfolio featuring dark/light mode toggling, custom CSS animations, smooth navigation, and direct email integration via Web3Forms.",
+    description: "A modern developer portfolio featuring dark/light mode toggling, smooth navigation, and direct email integration via Web3Forms.",
     technologies: ["React", "Vite", "CSS Flexbox/Grid", "Web3Forms"],
     liveUrl: "https://josh-portfolio-phi-six.vercel.app/",
     githubUrl: "https://github.com/eyazemaye-lab/josh-portfolio"
@@ -14,7 +14,7 @@ const projectsData = [
   {
     id: 2,
     title: "Interactive E-Commerce Hub",
-    description: "A feature-rich web storefront built with React. Includes dynamic product filtering, state-managed shopping cart, and custom UI design.",
+    description: "A feature-rich web storefront built with React. Includes dynamic product filtering, shopping cart, and custom UI design.",
     technologies: ["React", "JavaScript", "CSS3", "REST API"],
     liveUrl: "https://github.com/eyazemaye-lab",
     githubUrl: "https://github.com/eyazemaye-lab"
@@ -22,7 +22,7 @@ const projectsData = [
   {
     id: 3,
     title: "Task & Workflow Dashboard",
-    description: "A clean productivity web app for task organization, category tags, interactive status toggles, and local storage state persistence.",
+    description: "A productivity web app for task organization, category tags, interactive status toggles, and local storage state persistence.",
     technologies: ["React", "Hooks", "JavaScript", "CSS Grid"],
     liveUrl: "https://github.com/eyazemaye-lab",
     githubUrl: "https://github.com/eyazemaye-lab"
@@ -76,10 +76,7 @@ function App() {
 
       {/* Hero Section */}
       <section id="about" className="hero-section">
-        
-        {/* === PASTE YOUR IMAGE TAG HERE (Right above the badge) === */}
-        <img src="/eyasu.jpg" alt="Josh" className="profile-img" />
-
+        <img src="/eyasu.jpg" alt="Josh" className="eyasu-img" />
         <div className="badge hero-badge">Available for Work</div>
         <h1>Hi, I'm <span className="highlight">Josh</span> 👋</h1>
         <p className="subtitle">Frontend Developer & React Enthusiast</p>
@@ -144,7 +141,7 @@ function App() {
 
           <div className="form-group">
             <label htmlFor="message">Your Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Hi Josh, I'd like to work with you..." required></textarea>
+            <textarea id="message" name="message" rows="5" placeholder="Hi Josh..." required></textarea>
           </div>
 
           <button type="submit" className="submit-btn">Send Message</button>
