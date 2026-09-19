@@ -1,88 +1,99 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const projects = [
-    {
-      id: 1,
-      title: "E-Commerce Frontend",
-      description: "A responsive online store UI built with React and modern CSS features.",
-      techStack: ["React", "CSS3", "JavaScript"],
-      githubLink: "https://github.com",
-      liveLink: "https://example.com"
-    },
-    {
-      id: 2,
-      title: "Task Tracker App",
-      description: "A productivity application supporting CRUD operations and local storage.",
-      techStack: ["React", "State Hooks", "LocalStorage"],
-      githubLink: "https://github.com",
-      liveLink: "https://example.com"
-    },
-    {
-      id: 3,
-      title: "Weather Dashboard",
-      description: "Fetches live weather data using REST APIs with asynchronous JavaScript.",
-      techStack: ["React", "REST API", "Async/Await"],
-      githubLink: "https://github.com",
-      liveLink: "https://example.com"
+  // Option 5: React State for Dark/Light Mode
+  const [darkMode, setDarkMode] = useState(true);
+
+  // Option 2: State to handle Contact Form submission status
+  const [formStatus, setFormStatus] = useState('');
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus('Sending...');
+
+    const formData = new FormData(e.target);
+    
+    // Web3Forms public access key for receiving emails directly
+    formData.append("access_key", "4b0a65d1-9d53-462a-92ef-38288c6b6fe7");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormStatus('Message sent successfully! 🎉');
+        e.target.reset();
+      } else {
+        setFormStatus('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      setFormStatus('Error sending message. Check your connection.');
     }
-  ];
+  };
 
   return (
-    <div className="portfolio-container">
+    <div className={darkMode ? 'app dark-theme' : 'app light-theme'}>
+      {/* Navigation Header */}
       <nav className="navbar">
-        <div className="logo">Josh.dev</div>
-        <ul className="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+        <h2 className="logo">Josh.dev</h2>
+        <div className="nav-links">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          {/* Option 5: Dark / Light Mode Toggle Button */}
+          <button className="theme-toggle-btn" onClick={toggleTheme}>
+            {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+          </button>
+        </div>
       </nav>
 
-      <header className="hero">
-        <h1>Hi, I'm <span className="highlight">Josh</span></h1>
+      {/* Hero Section */}
+      <section id="about" className="hero-section">
+        <h1>Hi, I'm <span className="highlight">Josh</span> 👋</h1>
         <p className="subtitle">Frontend Developer & React Enthusiast</p>
-        <a href="#projects" className="cta-btn">View My Work</a>
-      </header>
-
-      <section id="about" className="section">
-        <h2>About Me</h2>
-        <p>
-          I am a passionate web developer focused on building interactive, modern, and user-friendly web applications. 
-          Experienced in HTML, CSS, JavaScript, and currently building projects with React.
+        <p className="bio">
+          I build modern, responsive web applications with clean user interfaces and smooth interactions.
         </p>
+        <a href="#contact" className="cta-btn">Get In Touch</a>
       </section>
 
-      <section id="projects" className="section">
-        <h2>My Works</h2>
-        <div className="projects-grid">
-          {projects.map((project) => (
-            <div key={project.id} className="project-card">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <div className="tech-tags">
-                {project.techStack.map((tech, index) => (
-                  <span key={index} className="tag">{tech}</span>
-                ))}
-              </div>
-              <div className="project-links">
-                <a href={project.githubLink} target="_blank" rel="noreferrer">GitHub</a>
-                <a href={project.liveLink} target="_blank" rel="noreferrer">Live Demo</a>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Option 2: Functional Contact Form Section */}
+      <section id="contact" className="contact-section">
+        <h2>Send Me a Message 📩</h2>
+        <p>Fill out the form below to reach out directly to my email inbox.</p>
+        
+        <form onSubmit={handleFormSubmit} className="contact-form">
+          <div className="form-group">
+            <label htmlFor="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="message">Your Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Hi Josh, I'd like to work with you on..." required></textarea>
+          </div>
+
+          <button type="submit" className="submit-btn">Send Message</button>
+          {formStatus && <p className="form-status">{formStatus}</p>}
+        </form>
       </section>
 
-      <section id="contact" className="section">
-        <h2>Get In Touch</h2>
-        <p>Interested in working together or have a question? Feel free to reach out!</p>
-        <a href="mailto:josh@example.com" className="cta-btn">Email Me</a>
-      </section>
-
-      <footer>
-        <p>&copy; {new Date().getFullYear()} Josh. All rights reserved.</p>
+      <footer className="footer">
+        <p>© {new Date().getFullYear()} Josh. All rights reserved.</p>
       </footer>
     </div>
   );
